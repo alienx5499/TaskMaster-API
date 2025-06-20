@@ -3,18 +3,18 @@
 # 🌟 **TaskMaster-API** 🌟  
 ### *Interactive Task Management API*
 
-[![Build Passing](https://img.shields.io/badge/build-passing-success?style=flat-square)](https://github.com/prabalpatra/TaskMaster-API/actions)
+[![Build Passing](https://img.shields.io/badge/build-passing-success?style=flat-square)](https://github.com/alienx5499/TaskMaster-API/actions)
 [![Node.js](https://img.shields.io/badge/Node.js-v16.10.0-green?style=flat-square)](https://nodejs.org/)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/prabalpatra/TaskMaster-API/blob/main/CONTRIBUTING.md)
-[![License: MIT](https://custom-icon-badges.herokuapp.com/github/license/prabalpatra/TaskMaster-API?logo=law&logoColor=white)](https://github.com/prabalpatra/TaskMaster-API/blob/main/LICENSE)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/alienx5499/TaskMaster-API/blob/main/CONTRIBUTING.md)
+[![License: MIT](https://custom-icon-badges.herokuapp.com/github/license/alienx5499/TaskMaster-API?logo=law&logoColor=white)](https://github.com/alienx5499/TaskMaster-API/blob/main/LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Web-brightgreen?style=flat-square)](https://taskmaster-api.vercel.app/)
-[![Views](https://visitor-badge.laobi.icu/badge?page_id=prabalpatra.taskmaster-api)](https://visitor-badge.laobi.icu/badge?page_id=prabalpatra.taskmaster-api)
-[![⭐ GitHub stars](https://img.shields.io/github/stars/prabalpatra/TaskMaster-API?style=social)](https://github.com/prabalpatra/TaskMaster-API/stargazers)
-[![🍴 GitHub forks](https://img.shields.io/github/forks/prabalpatra/TaskMaster-API?style=social)](https://github.com/prabalpatra/TaskMaster-API/network)
-[![Commits](https://badgen.net/github/commits/prabalpatra/TaskMaster-API)](https://github.com/prabalpatra/TaskMaster-API/commits/main)
-[![🐛 GitHub issues](https://img.shields.io/github/issues/prabalpatra/TaskMaster-API)](https://github.com/prabalpatra/TaskMaster-API/issues)
-[![📂 GitHub pull requests](https://img.shields.io/github/issues-pr/prabalpatra/TaskMaster-API)](https://github.com/prabalpatra/TaskMaster-API/pulls)
-[![💾 GitHub code size](https://img.shields.io/github/languages/code-size/prabalpatra/TaskMaster-API)](https://github.com/prabalpatra/TaskMaster-API)
+[![Views](https://visitor-badge.laobi.icu/badge?page_id=alienx5499.taskmaster-api)](https://visitor-badge.laobi.icu/badge?page_id=alienx5499.taskmaster-api)
+[![⭐ GitHub stars](https://img.shields.io/github/stars/alienx5499/TaskMaster-API?style=social)](https://github.com/alienx5499/TaskMaster-API/stargazers)
+[![🍴 GitHub forks](https://img.shields.io/github/forks/alienx5499/TaskMaster-API?style=social)](https://github.com/alienx5499/TaskMaster-API/network)
+[![Commits](https://badgen.net/github/commits/alienx5499/TaskMaster-API)](https://github.com/alienx5499/TaskMaster-API/commits/main)
+[![🐛 GitHub issues](https://img.shields.io/github/issues/alienx5499/TaskMaster-API)](https://github.com/alienx5499/TaskMaster-API/issues)
+[![📂 GitHub pull requests](https://img.shields.io/github/issues-pr/alienx5499/TaskMaster-API)](https://github.com/alienx5499/TaskMaster-API/pulls)
+[![💾 GitHub code size](https://img.shields.io/github/languages/code-size/alienx5499/TaskMaster-API)](https://github.com/alienx5499/TaskMaster-API)
 
 
 </div>
@@ -43,11 +43,11 @@ TaskMaster-API is an interactive web application that brings task management to 
 **Made task management click for you? You're exactly who we built this for!** ✨  
 *Help other developers discover what you just experienced* 💝
 
-<a href="https://github.com/prabalpatra/TaskMaster-API">
+<a href="https://github.com/alienx5499/TaskMaster-API">
   <img src="https://img.shields.io/badge/⭐%20Star%20this%20repo-Be%20part%20of%20our%20community!-yellow?style=for-the-badge&logo=github" alt="Star this repo" />
 </a>
 
-<a href="https://twitter.com/intent/tweet?text=🔥%20WOW!%20TaskMaster-API%20made%20task%20management%20finally%20click%20for%20me!%20This%20interactive%20API%20is%20a%20game-changer%20🧠✨%0AIf%20you're%20struggling%20with%20APIs,%20prepping%20for%20coding%20interviews,%20or%20just%20want%20to%20understand%20task%20management%20better%20-%20you%20NEED%20this!%20%F0%9F%9A%80%0Ahttps://github.com/prabalpatra/TaskMaster-API%0A@prabalpatra">
+<a href="https://twitter.com/intent/tweet?text=🔥%20WOW!%20TaskMaster-API%20made%20task%20management%20finally%20click%20for%20me!%20This%20interactive%20API%20is%20a%20game-changer%20🧠✨%0AIf%20you're%20struggling%20with%20APIs,%20prepping%20for%20coding%20interviews,%20or%20just%20want%20to%20understand%20task%20management%20better%20-%20you%20NEED%20this!%20%F0%9F%9A%80%0Ahttps://github.com/alienx5499/TaskMaster-API%0A@alienx5499">
   <img src="https://img.shields.io/badge/🐦%20Share%20the%20love-Help%20a%20fellow%20developer!-1DA1F2?style=for-the-badge&logo=twitter" alt="Tweet about TaskMaster-API" />
 </a>
 
@@ -200,7 +200,7 @@ TaskMaster-API/                  # Main project repository
 
 2. **Local Setup (3 commands)**
    ```bash
-   git clone https://github.com/prabalpatra/TaskMaster-API.git
+   git clone https://github.com/alienx5499/TaskMaster-API.git
    cd TaskMaster-API && npm install && npm rebuild sqlite3
    npm start  # Visit http://localhost:3002
    ```
@@ -395,7 +395,7 @@ npm start  # Watch console output
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/prabalpatra/TaskMaster-API.git
+   git clone https://github.com/alienx5499/TaskMaster-API.git
    ```
 
 2. **Navigate to Project Directory**
@@ -501,8 +501,8 @@ We ❤️ open source! Your contributions make this project better.
 <div align="center">
 	<h3>Thank you for contributing to our repository</h3><br>
 	<p align="center">
-		<a href="https://github.com/prabalpatra/TaskMaster-API/contributors">
-			<img src="https://contrib.rocks/image?repo=prabalpatra/TaskMaster-API" width="180" height="95" />
+		<a href="https://github.com/alienx5499/TaskMaster-API/contributors">
+			<img src="https://contrib.rocks/image?repo=alienx5499/TaskMaster-API" width="180" height="95" />
 		</a>
 	</p>
 </div>
@@ -518,7 +518,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
 
 ### 📬 **Feedback & Suggestions**
-*We value your input! Share your thoughts through [GitHub Issues](https://github.com/prabalpatra/TaskMaster-API/issues).*
+*We value your input! Share your thoughts through [GitHub Issues](https://github.com/alienx5499/TaskMaster-API/issues).*
 
 💡 *Let's work together to enhance the understanding of task management operations!*
 
