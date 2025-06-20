@@ -1,0 +1,10 @@
+/.DS_Store
+/API_DOCUMENTATION.md
+/node_modules
+/package.json
+/pnpm-lock.yaml
+/pnpm-workspace.yaml
+/public
+/server.js
+/tasks.db
+/test-api.js
