@@ -280,6 +280,41 @@ rm tasks.db && npm start
 - Error handling verification
 - Performance benchmarking
 
+#### **📊 Comprehensive Test Coverage**
+
+We've implemented a complete testing suite with **70%+ code coverage** including:
+
+- **Unit Tests**: Input validation, middleware, and business logic testing
+- **Integration Tests**: Database operations and server integration
+- **API Tests**: Complete endpoint coverage (100% of all 6 endpoints)
+- **Performance Tests**: Load testing and response time verification
+
+**Test Coverage Results:**
+
+![Test Coverage Screenshot](https://github.com/user-attachments/assets/e32190da-3452-4433-a4a9-1f3aeeff5b63)
+
+**Available Test Commands:**
+```bash
+# Run all tests with coverage
+npm test
+
+# Run specific test types
+npm run test:unit          # Unit tests only
+npm run test:integration   # Integration tests only  
+npm run test:api          # API endpoint tests only
+
+# Development testing
+npm run test:watch        # Watch mode for development
+npm run coverage          # Generate detailed coverage report
+```
+
+**Test Results Summary:**
+- ✅ **85+ test cases**
+- ✅ **82.48% statement coverage**
+- ✅ **84.26% branch coverage**
+- ✅ **95.45% function coverage**
+- ✅ **100% API endpoint coverage**
+
 #### **📈 Monitoring & Logging**
 - Console request logging with timestamps
 - Database operation tracking

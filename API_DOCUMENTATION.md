@@ -597,7 +597,7 @@ class TaskMasterAPI {
 
     try {
       const response = await fetch(url, config);
-      const data = await response.json();
+const data = await response.json();
       
       if (!response.ok) {
         throw new Error(data.error || 'Request failed');
@@ -664,7 +664,7 @@ const newTask = await api.createTask({
 // Get all high priority pending tasks
 const tasks = await api.getTasks({
   status: 'pending',
-  priority: 'high'
+    priority: 'high'
 });
 
 // Update task status
@@ -753,7 +753,7 @@ class TaskMasterAPI:
 if __name__ == "__main__":
     api = TaskMasterAPI()
 
-    # Create a new task
+# Create a new task
     new_task = api.create_task(
         title="Setup CI/CD Pipeline",
         description="Configure GitHub Actions for automated testing",
