@@ -54,7 +54,9 @@ function createApp(dbPath = './tasks.db') {
   // Initialize SQLite database
   const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
-      console.error('Error opening database:', err.message);
+      if (process.env.NODE_ENV !== 'test') {
+        console.error('Error opening database:', err.message);
+      }
     } else {
       if (process.env.NODE_ENV !== 'test') {
         console.log('Connected to SQLite database.');
@@ -122,7 +124,9 @@ function createApp(dbPath = './tasks.db') {
     
     db.all(query, params, (err, rows) => {
       if (err) {
-        console.error('Database error:', err);
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('Database error:', err);
+        }
         res.status(500).json({ error: err.message });
       } else {
         res.json({
@@ -140,7 +144,9 @@ function createApp(dbPath = './tasks.db') {
     
     db.get('SELECT * FROM tasks WHERE id = ?', [id], (err, row) => {
       if (err) {
-        console.error('Database error:', err);
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('Database error:', err);
+        }
         res.status(500).json({ error: err.message });
       } else if (!row) {
         res.status(404).json({ error: 'Task not found' });
@@ -193,7 +199,9 @@ function createApp(dbPath = './tasks.db') {
     
       db.run(query, params, function(err) {
       if (err) {
-          console.error('Database error:', err);
+          if (process.env.NODE_ENV !== 'test') {
+            console.error('Database error:', err);
+          }
           return res.status(500).json({ error: 'Database error: ' + err.message });
       } else {
           const responseData = {
@@ -217,7 +225,9 @@ function createApp(dbPath = './tasks.db') {
       }
     });
     } catch (error) {
-      console.error('Unexpected error in POST /api/tasks:', error);
+      if (process.env.NODE_ENV !== 'test') {
+        console.error('Unexpected error in POST /api/tasks:', error);
+      }
       res.status(500).json({ error: 'Internal server error: ' + error.message });
     }
   });
@@ -235,7 +245,9 @@ function createApp(dbPath = './tasks.db') {
     
     db.run(query, [title.trim(), description || '', status, priority, id], function(err) {
       if (err) {
-        console.error('Database error:', err);
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('Database error:', err);
+        }
         res.status(500).json({ error: err.message });
       } else if (this.changes === 0) {
         res.status(404).json({ error: 'Task not found' });
@@ -255,7 +267,9 @@ function createApp(dbPath = './tasks.db') {
     
     db.run('DELETE FROM tasks WHERE id = ?', [id], function(err) {
       if (err) {
-        console.error('Database error:', err);
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('Database error:', err);
+        }
         res.status(500).json({ error: err.message });
       } else if (this.changes === 0) {
         res.status(404).json({ error: 'Task not found' });
@@ -283,7 +297,9 @@ function createApp(dbPath = './tasks.db') {
       
       db.get(query, (err, row) => {
         if (err) {
-          console.error('Database error in stats:', err);
+          if (process.env.NODE_ENV !== 'test') {
+            console.error('Database error in stats:', err);
+          }
           return res.status(500).json({ error: 'Failed to fetch statistics' });
         }
         
@@ -298,7 +314,9 @@ function createApp(dbPath = './tasks.db') {
             });
       });
     } catch (error) {
-      console.error('Unexpected error in stats endpoint:', error);
+      if (process.env.NODE_ENV !== 'test') {
+        console.error('Unexpected error in stats endpoint:', error);
+      }
       res.status(500).json({ error: 'Internal server error' });
     }
   });
@@ -315,7 +333,9 @@ function createApp(dbPath = './tasks.db') {
 
   // Global error handler
   app.use((err, req, res, next) => {
-    console.error(err.stack);
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(err.stack);
+    }
     if (req.path.startsWith('/api/')) {
     res.status(500).json({ error: 'Something went wrong!' });
     } else {
