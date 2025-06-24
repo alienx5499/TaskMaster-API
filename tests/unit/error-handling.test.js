@@ -1,11 +1,14 @@
 const request = require('supertest');
 const createApp = require('../../src/app');
+const fs = require('fs');
+const path = require('path');
 
 describe('Comprehensive Error Handling Tests', () => {
   let app;
 
   beforeEach(() => {
-    app = createApp('./test_error_handling.db');
+    // Use in-memory database to avoid data contamination
+    app = createApp(':memory:');
   });
 
   afterEach((done) => {
@@ -13,6 +16,14 @@ describe('Comprehensive Error Handling Tests', () => {
       app.db.close(done);
     } else {
       done();
+    }
+  });
+
+  // Clean up any leftover database files
+  afterAll(() => {
+    const testDbPath = path.join(__dirname, '../../test_error_handling.db');
+    if (fs.existsSync(testDbPath)) {
+      fs.unlinkSync(testDbPath);
     }
   });
 
