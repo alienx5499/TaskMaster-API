@@ -291,7 +291,8 @@ We've implemented a complete testing suite with **70%+ code coverage** including
 
 **Test Coverage Results:**
 
-![Test Coverage Screenshot](https://github.com/user-attachments/assets/6bfe0179-7450-4224-9da2-956270d852e3)
+![Test Coverage Screenshot](https://github.com/user-attachments/assets/ed183f3b-b0ae-4a4d-bea1-779ad4498496)
+
 
 **Available Test Commands:**
 ```bash
