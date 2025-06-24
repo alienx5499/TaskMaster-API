@@ -22,5 +22,15 @@ afterAll(() => {
   }
 });
 
-// Increase timeout for database operations
-jest.setTimeout(30000); 
+// Reduce timeout to catch hanging tests faster (was 30000ms)
+jest.setTimeout(10000); // 10 seconds instead of 30
+
+// Add global error handler for unhandled rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+// Add global error handler for uncaught exceptions
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+}); 
