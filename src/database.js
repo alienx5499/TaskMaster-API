@@ -8,18 +8,23 @@ class Database {
   }
 
   init() {
-    if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
-      // For Vercel production - use in-memory database
-      // In a real app, you'd use Vercel Postgres or another cloud DB
-      console.log('🌐 Using in-memory database for Vercel deployment');
-      this.db = new sqlite3.Database(':memory:');
-    } else {
-      // For local development
-      console.log('💾 Using local SQLite database');
-      this.db = new sqlite3.Database('./tasks.db');
-    }
+    try {
+      if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
+        // For Vercel production - use in-memory database
+        // In a real app, you'd use Vercel Postgres or another cloud DB
+        console.log('🌐 Using in-memory database for Vercel deployment');
+        this.db = new sqlite3.Database(':memory:');
+      } else {
+        // For local development
+        console.log('💾 Using local SQLite database');
+        this.db = new sqlite3.Database('./tasks.db');
+      }
 
-    this.createTables();
+      this.createTables();
+    } catch (error) {
+      console.error('❌ Database initialization failed:', error);
+      throw error;
+    }
   }
 
   createTables() {
