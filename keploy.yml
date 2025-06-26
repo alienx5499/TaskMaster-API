@@ -1,0 +1,28 @@
+version: api/v1beta1
+kind: config-file
+metadata:
+  name: taskmaster-api-config
+spec:
+  app:
+    name: "taskmaster-api"
+    port: 3002
+    host: "localhost"
+    delay: 10
+  server:
+    port: 6789
+    host: "0.0.0.0"
+    apiTimeout: 10
+    delay: 5
+  configDir: "keploy"
+  bypassRules:
+    - path: "/health"
+      host: "localhost"
+      port: 3002
+    - path: "/favicon.ico"
+      host: "localhost"
+      port: 3002
+  enableTesting: true
+  testsets:
+    - name: "api-tests"
+      pre-script: "npm start"
+      post-script: "pkill -f node" 
