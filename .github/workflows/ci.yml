@@ -37,9 +37,20 @@ jobs:
       run: |
         keploy --version
         
+    - name: Verify API Key Setup
+      run: |
+        if [ -z "${{ secrets.KEPLOY_API_KEY }}" ]; then
+          echo "❌ KEPLOY_API_KEY secret is not set!"
+          exit 1
+        else
+          echo "✅ KEPLOY_API_KEY secret is configured"
+        fi
+        
     - name: Run Keploy Test Suite
       run: |
-        export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+        echo "🚀 Starting Keploy test suite..."
+        echo "📍 Base Path: https://kpltaskmasterapi.vercel.app/api"
+        echo "🆔 App ID: cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc"
         keploy test-suite --app=cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc --base-path https://kpltaskmasterapi.vercel.app/api --cloud
       env:
         KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
@@ -54,28 +65,5 @@ jobs:
           *.log
         retention-days: 30
 
-  deploy:
-    name: Deploy to Vercel
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      
-    - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-args: '--prod'
-        
-    - name: Post-Deploy Keploy Tests
-      run: |
-        export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
-        echo "Running post-deployment validation tests..."
-        keploy test-suite --app=cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc --base-path https://kpltaskmasterapi.vercel.app/api --cloud
-      env:
-        KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }} 
+  # Note: Deployment is handled automatically by Vercel when pushing to main branch
+  # This workflow focuses on automated testing with Keploy 
