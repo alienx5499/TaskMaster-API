@@ -1,0 +1,76 @@
+name: TaskMaster API - CI/CD with Keploy Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: API Testing with Keploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install Dependencies
+      run: npm install
+      
+    - name: Install Keploy CLI
+      run: |
+        curl --silent -L https://keploy.io/ent/install.sh | bash
+        
+    - name: Verify Keploy Installation
+      run: |
+        keploy --version
+        
+    - name: Run Keploy Test Suite
+      run: |
+        export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+        keploy test-suite --app=cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc --base-path https://kpltaskmasterapi.vercel.app/api --cloud
+      env:
+        KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+        
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: keploy-test-results
+        path: |
+          keploy-logs/
+          *.log
+        retention-days: 30
+
+  deploy:
+    name: Deploy to Vercel
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        
+    - name: Post-Deploy Keploy Tests
+      run: |
+        export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+        echo "Running post-deployment validation tests..."
+        keploy test-suite --app=cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc --base-path https://kpltaskmasterapi.vercel.app/api --cloud
+      env:
+        KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }} 
