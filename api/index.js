@@ -1,30 +1,55 @@
-const createApp = require('../src/app');
+// Simple test to debug Vercel deployment
+const express = require('express');
 
-// Set environment variables for Vercel
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
-process.env.VERCEL = '1';
+// Create a minimal Express app for debugging
+const app = express();
 
-let app;
+// Basic middleware
+app.use(express.json());
 
-try {
-  // Create the Express app with error handling
-  app = createApp();
-  console.log('✅ Express app initialized successfully for Vercel');
-} catch (error) {
-  console.error('❌ Error initializing Express app:', error);
-  
-  // Create a basic error app as fallback
-  const express = require('express');
-  app = express();
-  
-  app.use((req, res) => {
-    res.status(500).json({ 
-      error: 'Application initialization failed',
-      message: error.message,
-      timestamp: new Date().toISOString()
-    });
+// Test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    message: 'Basic Express is working!',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'unknown'
   });
-}
+});
 
-// Export for Vercel serverless functions
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK',
+    message: 'Minimal API is working',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Test if we can load our app module
+app.get('/api/debug', (req, res) => {
+  try {
+    const createApp = require('../src/app');
+    res.json({
+      success: true,
+      message: 'Module loading works',
+      appCreated: typeof createApp === 'function'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      stack: error.stack
+    });
+  }
+});
+
+// Catch all for debugging
+app.use('*', (req, res) => {
+  res.json({
+    message: 'Route not found',
+    path: req.originalUrl,
+    method: req.method
+  });
+});
+
 module.exports = app; 
