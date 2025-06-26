@@ -22,6 +22,9 @@
     <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
+            corePlugins: {
+                preflight: false
+            },
             theme: {
                 extend: {
                     fontFamily: {
@@ -43,6 +46,16 @@
                     }
                 }
             }
+        }
+        
+        // Suppress CDN production warning
+        if (typeof console !== 'undefined' && console.warn) {
+            const originalWarn = console.warn;
+            console.warn = function(...args) {
+                if (!args[0] || !args[0].toString().includes('cdn.tailwindcss.com')) {
+                    originalWarn.apply(console, args);
+                }
+            };
         }
     </script>
     

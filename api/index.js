@@ -40,6 +40,24 @@ app.get('/api/tasks', (req, res) => {
   });
 });
 
+// GET /api/stats - Return task statistics
+app.get('/api/stats', (req, res) => {
+  const stats = {
+    total: mockTasks.length,
+    pending: mockTasks.filter(t => t.status === 'pending').length,
+    in_progress: mockTasks.filter(t => t.status === 'in_progress').length,
+    completed: mockTasks.filter(t => t.status === 'completed').length,
+    high_priority: mockTasks.filter(t => t.priority === 'high').length,
+    medium_priority: mockTasks.filter(t => t.priority === 'medium').length,
+    low_priority: mockTasks.filter(t => t.priority === 'low').length
+  };
+  
+  res.json({
+    success: true,
+    data: stats
+  });
+});
+
 // GET /api/tasks/:id - Get single task
 app.get('/api/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id);
