@@ -1,18 +1,18 @@
 const request = require('supertest');
 
 // Simple and effective mock setup
-const mockDb = {
-  run: jest.fn(),
-  get: jest.fn(),
-  all: jest.fn(),
-  close: jest.fn(),
-  serialize: jest.fn((callback) => callback && callback())
-};
+  const mockDb = {
+    run: jest.fn(),
+    get: jest.fn(),
+    all: jest.fn(),
+    close: jest.fn(),
+    serialize: jest.fn((callback) => callback && callback())
+  };
 
 // Mock sqlite3 with a simpler approach
 jest.mock('sqlite3', () => ({
   verbose: () => ({
-    Database: jest.fn(() => mockDb)
+      Database: jest.fn(() => mockDb)
   })
 }));
 
@@ -63,7 +63,7 @@ describe('Unit Tests - Mocked Database (Simplified)', () => {
 
     test('should handle database errors', async () => {
       const mockError = new Error('Database error');
-      
+
       mockDb.all.mockImplementation((query, params, callback) => {
         callback(mockError, null);
       });
@@ -107,7 +107,7 @@ describe('Unit Tests - Mocked Database (Simplified)', () => {
   describe('GET /api/tasks/:id - Basic Mocking', () => {
     test('should return specific task', async () => {
       const mockTask = { id: 1, title: 'Specific Task' };
-      
+
       mockDb.get.mockImplementation((query, params, callback) => {
         callback(null, mockTask);
       });

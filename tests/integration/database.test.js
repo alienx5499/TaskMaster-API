@@ -21,16 +21,16 @@ describe('Integration Tests - Database Operations', () => {
       // Add a small delay to ensure all async operations complete
       setTimeout(() => {
         app.db.close((err) => {
-          // Clean up test database file
-          if (fs.existsSync(testDbPath)) {
+        // Clean up test database file
+        if (fs.existsSync(testDbPath)) {
             try {
-              fs.unlinkSync(testDbPath);
+          fs.unlinkSync(testDbPath);
             } catch (e) {
               // Ignore file deletion errors
             }
-          }
-          done();
-        });
+        }
+        done();
+      });
       }, 50);
     } else {
       // Clean up test database file even if db is already closed
@@ -316,9 +316,9 @@ describe('Integration Tests - Database Operations', () => {
       const originalDb = app.db;
       
       await new Promise((resolve) => {
-        app.db.close(() => {
+      app.db.close(() => {
           resolve();
-        });
+          });
       });
       
       // Try to make a request after closing the database
