@@ -54,7 +54,8 @@
     "supertest": "^6.3.3",
     "cross-env": "^7.0.3",
     "@types/jest": "^29.5.5",
-    "jest-environment-node": "^29.7.0"
+    "jest-environment-node": "^29.7.0",
+    "wait-on": "^7.2.0"
   },
   "jest": {
     "testEnvironment": "node",
