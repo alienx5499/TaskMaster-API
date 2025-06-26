@@ -48,9 +48,6 @@ function createApp(dbPath = './tasks.db') {
     });
   }
 
-  // Serve static files from the public directory
-  app.use(express.static(path.join(__dirname, '../public')));
-
   // Initialize Database
   const database = new Database();
   const db = database.getDatabase();
@@ -291,7 +288,10 @@ function createApp(dbPath = './tasks.db') {
     res.status(404).json({ error: 'API endpoint not found' });
   });
 
-  // Serve the frontend for non-API routes
+  // Serve static files from the public directory (after API routes)
+  app.use(express.static(path.join(__dirname, '../public')));
+
+  // Serve the frontend for non-API routes (SPA fallback)
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
   });
