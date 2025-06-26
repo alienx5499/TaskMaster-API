@@ -47,12 +47,18 @@ jobs:
           echo "✅ KEPLOY_API_KEY secret is configured"
         fi
         
+    - name: Create Keploy Log Directory
+      run: |
+        mkdir -p keploy-logs
+        echo "📁 Created keploy-logs directory"
+        
     - name: Run Keploy Test Suite
       run: |
         echo "🚀 Starting Keploy test suite..."
         echo "📍 Base Path: https://kpltaskmasterapi.vercel.app/api"
         echo "🆔 App ID: cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc"
-        keploy test-suite --app=cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc --base-path https://kpltaskmasterapi.vercel.app/api --cloud
+        keploy test-suite --app=cfb3cb4b-cebb-41cf-bea3-2ea9ac7ab3bc --base-path https://kpltaskmasterapi.vercel.app/api --cloud 2>&1 | tee keploy-logs/test-output.log
+        echo "✅ Test execution completed"
       env:
         KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
         
@@ -61,10 +67,9 @@ jobs:
       if: always()
       with:
         name: keploy-test-results
-        path: |
-          keploy-logs/
-          *.log
+        path: keploy-logs/
         retention-days: 30
+        if-no-files-found: warn
 
   # Note: Deployment is handled automatically by Vercel when pushing to main branch
   # This workflow focuses on automated testing with Keploy 
