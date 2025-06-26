@@ -47,11 +47,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     
-    services:
-      # Optional: Add database service if needed
-      sqlite:
-        options: --health-cmd "echo 'SQLite Ready'"
-    
     steps:
     - name: 📥 Checkout repository
       uses: actions/checkout@v4
