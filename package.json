@@ -4,8 +4,10 @@
   "description": "TaskMaster API - Advanced task management with beautiful, intuitive interface",
   "main": "server.js",
   "scripts": {
-    "start": "PORT=3002 node server.js",
+    "start": "node server.js",
     "dev": "PORT=3002 nodemon server.js --watch server.js --watch public/",
+    "build": "echo 'Build complete'",
+    "vercel-build": "echo 'Vercel build complete'",
     "test": "cross-env NODE_ENV=test jest --coverage --verbose --detectOpenHandles",
     "test:fast": "cross-env NODE_ENV=test jest --silent",
     "test:unit": "cross-env NODE_ENV=test jest --testPathPattern=unit --coverage",
