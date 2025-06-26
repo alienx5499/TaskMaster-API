@@ -1,0 +1,395 @@
+openapi: 3.0.3
+info:
+  title: TaskMaster API
+  description: A comprehensive task management API with CRUD operations and statistics
+  version: 2.0.0
+  contact:
+    name: TaskMaster API Team
+    url: https://taskmaster-api.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: http://localhost:3002
+    description: Local server (alternative port)
+
+tags:
+  - name: Health
+    description: System health check
+  - name: Tasks
+    description: Task management operations
+  - name: Statistics
+    description: Task statistics and analytics
+
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check endpoint
+      description: Returns the health status of the API
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "OK"
+                  message:
+                    type: string
+                    example: "Task Management API is running"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2024-01-15T10:30:00.000Z"
+
+  /api/tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Get all tasks
+      description: Retrieve all tasks with optional filtering by status and priority
+      parameters:
+        - name: status
+          in: query
+          description: Filter tasks by status
+          required: false
+          schema:
+            type: string
+            enum: [pending, in_progress, completed]
+        - name: priority
+          in: query
+          description: Filter tasks by priority
+          required: false
+          schema:
+            type: string
+            enum: [low, medium, high]
+      responses:
+        '200':
+          description: Tasks retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+                  total:
+                    type: integer
+                    example: 5
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - Tasks
+      summary: Create a new task
+      description: Create a new task with title, description, status, and priority
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Task'
+                  message:
+                    type: string
+                    example: "Task created successfully"
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/tasks/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: Get a specific task
+      description: Retrieve a task by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Task'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Tasks
+      summary: Update a task
+      description: Update an existing task by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Task'
+                  message:
+                    type: string
+                    example: "Task updated successfully"
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Tasks
+      summary: Delete a task
+      description: Delete a task by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Task deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Task deleted successfully"
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/stats:
+    get:
+      tags:
+        - Statistics
+      summary: Get task statistics
+      description: Retrieve task count statistics by status
+      responses:
+        '200':
+          description: Statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/TaskStats'
+        '500':
+          description: Database error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Complete project documentation"
+        description:
+          type: string
+          example: "Write comprehensive API documentation for the TaskMaster project"
+        status:
+          type: string
+          enum: [pending, in_progress, completed]
+          example: "in_progress"
+        priority:
+          type: string
+          enum: [low, medium, high]
+          example: "high"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-01-15T14:45:00.000Z"
+
+    CreateTaskRequest:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          example: "Complete project documentation"
+          minLength: 1
+        description:
+          type: string
+          example: "Write comprehensive API documentation for the TaskMaster project"
+        status:
+          type: string
+          enum: [pending, in_progress, completed]
+          default: "pending"
+          example: "pending"
+        priority:
+          type: string
+          enum: [low, medium, high]
+          default: "medium"
+          example: "high"
+
+    UpdateTaskRequest:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          example: "Complete project documentation"
+          minLength: 1
+        description:
+          type: string
+          example: "Write comprehensive API documentation for the TaskMaster project"
+        status:
+          type: string
+          enum: [pending, in_progress, completed]
+          example: "completed"
+        priority:
+          type: string
+          enum: [low, medium, high]
+          example: "high"
+
+    TaskStats:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 10
+        pending:
+          type: integer
+          example: 3
+        in_progress:
+          type: integer
+          example: 4
+        completed:
+          type: integer
+          example: 3
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Task not found" 
