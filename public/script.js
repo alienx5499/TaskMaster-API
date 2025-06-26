@@ -605,10 +605,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto-save draft functionality
     setupAutoSave();
     
-    // Service worker registration for offline support
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(console.error);
-    }
+    // Service worker removed - not needed for this deployment
 });
 
 // Keyboard Shortcuts
