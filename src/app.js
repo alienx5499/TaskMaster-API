@@ -1,8 +1,8 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const Database = require('./database');
 
 function createApp(dbPath = './tasks.db') {
   const app = express();
@@ -51,44 +51,9 @@ function createApp(dbPath = './tasks.db') {
   // Serve static files from the public directory
   app.use(express.static(path.join(__dirname, '../public')));
 
-  // Initialize SQLite database
-  const db = new sqlite3.Database(dbPath, (err) => {
-    if (err) {
-      if (process.env.NODE_ENV !== 'test') {
-      console.error('Error opening database:', err.message);
-      }
-    } else {
-      if (process.env.NODE_ENV !== 'test') {
-        console.log('Connected to SQLite database.');
-      }
-    }
-  });
-
-  // Create tasks table if it doesn't exist (synchronous for tests)
-  if (db.serialize) {
-    db.serialize(() => {
-      db.run(`CREATE TABLE IF NOT EXISTS tasks (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        description TEXT,
-        status TEXT DEFAULT 'pending',
-        priority TEXT DEFAULT 'medium',
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )`);
-    });
-  } else {
-    // For mocked databases that don't have serialize
-    db.run(`CREATE TABLE IF NOT EXISTS tasks (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      description TEXT,
-      status TEXT DEFAULT 'pending',
-      priority TEXT DEFAULT 'medium',
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`);
-  }
+  // Initialize Database
+  const database = new Database();
+  const db = database.getDatabase();
 
   // Health check endpoint (before API routes)
   app.get('/health', (req, res) => {
@@ -345,6 +310,7 @@ function createApp(dbPath = './tasks.db') {
 
   // Expose the database for testing
   app.db = db;
+  app.database = database;
   
   return app;
 }
