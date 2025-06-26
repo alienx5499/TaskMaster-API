@@ -5,7 +5,9 @@
 
 // Configuration
 const CONFIG = {
-    API_BASE: 'http://localhost:3002/api',
+    API_BASE: window.location.hostname === 'localhost' 
+        ? 'http://localhost:3002/api' 
+        : `${window.location.origin}/api`,
     ANIMATION_DELAY: 100,
     ALERT_DURATION: 5000,
     COUNTER_ANIMATION_SPEED: 50,
