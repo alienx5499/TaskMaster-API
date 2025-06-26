@@ -215,9 +215,26 @@ This project includes comprehensive AI-powered API testing using **Keploy**, int
 
 ### 📊 **Test Results Dashboard**
 
-![Keploy Test Results](https://img.shields.io/badge/Keploy%20Tests-Passing-success?style=for-the-badge&logo=checkmarx)
+![Keploy Test Results](https://img.shields.io/badge/Keploy%20Tests-15%20Passed%20/%205%20Failed-orange?style=for-the-badge&logo=checkmarx)
 ![API Coverage](https://img.shields.io/badge/API%20Coverage-100%25-brightgreen?style=for-the-badge)
-![Test Cases](https://img.shields.io/badge/Test%20Cases-14%20Endpoints-blue?style=for-the-badge)
+![Test Suites](https://img.shields.io/badge/Test%20Suites-20%20Total-blue?style=for-the-badge)
+
+#### **🎯 Latest Keploy Test Execution Results**
+
+![Keploy API Test Results](https://github.com/user-attachments/assets/6d1ef283-f110-4626-85c3-2a46225048da)
+
+**Test Suite Summary:**
+- ✅ **Total Test Suites**: 20
+- ✅ **Passed**: 15 (75% success rate)
+- ❌ **Failed**: 5 (Edge cases and advanced scenarios)
+- 🔄 **CI/CD Integration**: Automated testing on every push
+
+**Key Achievements:**
+- ✅ All core CRUD operations working perfectly
+- ✅ Comprehensive error handling validation  
+- ✅ Idempotency testing for PUT/DELETE operations
+- ✅ Advanced timestamp validation
+- ✅ Automated test execution in GitHub Actions
 
 ### 🔧 **How to Use Keploy Testing**
 
@@ -292,13 +309,24 @@ graph LR
     E --> F[Post-deployment Tests]
 ```
 
-### 🏆 **Test Reports**
-View our latest test results in the [GitHub Actions](https://github.com/alienx5499/TaskMaster-API/actions) tab, where you can see:
-- Test execution logs
-- API response validation
-- Performance metrics
-- Coverage reports
-- Deployment status
+### 🏆 **Test Reports & CI/CD Configuration**
+
+**📋 View Live Results:**
+- [🔍 **Latest Test Results**](https://github.com/alienx5499/TaskMaster-API/actions) - GitHub Actions dashboard
+- [⚙️ **CI/CD Configuration**](https://github.com/alienx5499/TaskMaster-API/blob/main/.github/workflows/ci.yml) - GitHub Actions workflow file
+- [📊 **Test Artifacts**](https://github.com/alienx5499/TaskMaster-API/actions) - Downloadable test logs and reports
+
+**🔧 CI/CD Pipeline Features:**
+- ✅ **Automated Keploy Testing** on every push and pull request
+- ✅ **Manual Workflow Triggers** for on-demand testing
+- ✅ **Test Log Artifacts** automatically saved and uploaded
+- ✅ **Node.js 20** with pnpm package management
+- ✅ **Production Environment Testing** against live Vercel deployment
+
+**📁 Key Files:**
+- [`.github/workflows/ci.yml`](https://github.com/alienx5499/TaskMaster-API/blob/main/.github/workflows/ci.yml) - Complete CI/CD workflow
+- [`openapi.yaml`](https://github.com/alienx5499/TaskMaster-API/blob/main/openapi.yaml) - API specification for Keploy
+- [`vercel.json`](https://github.com/alienx5499/TaskMaster-API/blob/main/vercel.json) - Deployment configuration
 
 ---
 
