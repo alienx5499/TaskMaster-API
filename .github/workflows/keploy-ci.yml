@@ -25,17 +25,12 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         
-    - name: 📦 Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
-        
     - name: 📦 Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: npm install
         
     - name: 🧪 Run tests with coverage
       run: |
-        pnpm run test
+        npm run test
         
     - name: 📊 Upload coverage to codecov
       uses: codecov/codecov-action@v3
@@ -58,17 +53,16 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: npm ci
+      run: npm install
       
     - name: 🚀 Start application
       run: |
-        pnpm start &
+        npm start &
         sleep 10
         # Wait for server to be ready
-        pnpm dlx wait-on http://localhost:${{ env.PORT }}/health --timeout 30000
+        npx wait-on http://localhost:${{ env.PORT }}/health --timeout 30000
       env:
         PORT: ${{ env.PORT }}
         
@@ -266,14 +260,9 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         
-    - name: 📦 Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
-        
-    - name: 🔍 Run pnpm audit
+    - name: 🔍 Run npm audit
       run: |
-        pnpm audit --audit-level moderate
+        npm audit --audit-level moderate
         
     - name: 🛡️ Run CodeQL Analysis
       uses: github/codeql-action/analyze@v2
@@ -294,14 +283,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        
-    - name: 📦 Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
+        cache: 'npm'
         
     - name: 📦 Install dependencies
-      run: pnpm install --frozen-lockfile --prod
+      run: npm install --production
       
     - name: 🎯 Simulate deployment
       run: |
